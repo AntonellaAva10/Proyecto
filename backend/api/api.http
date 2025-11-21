@@ -1,0 +1,41 @@
+@urlocal = http://localhost:8000/api
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmUiOiJBbnRvbmVsbGEiLCJpYXQiOjE3NjM2ODI2NTEsImV4cCI6MTc2MzY4NjI1MX0.rknnk0mXrW7tJXDHPE8UMD0wV9xXyfe4Gsb-lQMQkus
+
+GET {{urlocal}}/clientes
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+##########
+
+POST {{urlocal}}/login
+Content-Type: application/json
+Accept: application/json
+
+##########
+
+POST {{urlocal}}/usuario/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  
+  "email": "admin",
+  "password": "admin123",
+  "rol": "admin"
+}
+
+
+
+##########
+
+POST {{urlocal}}/usuario/login
+Content-Type: application/json
+Accept: application/json
+
+{ 
+  "email": "admin",
+  "password": "admin123",
+  "rol": "admin"
+}
