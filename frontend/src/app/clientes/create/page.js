@@ -28,7 +28,7 @@ export default function RegisterCliente() {
     try {
       const token = localStorage.getItem("token");
       await createCliente(form, token);
-      router.push("/clientes"); // Volver al listado
+      router.push("/clientes");
     } catch (err) {
       setError(err.message);
     } finally {

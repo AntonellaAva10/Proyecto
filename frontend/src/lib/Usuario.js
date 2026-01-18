@@ -10,14 +10,13 @@ export async function login(usuario, password) {
       body: JSON.stringify({ usuario, password }),
     });
 
-    // Si el servidor responde con error
     if (!res.ok) {
       const text = await res.text();
       throw new Error(`Error ${res.status}: ${text}`);
     }
 
     const data = await res.json();
-    return data; // Contiene token, rol, usuario, etc.
+    return data;
   } catch (error) {
     console.error("Error en login:", error);
     throw error;
@@ -48,4 +47,23 @@ export async function register(email, password) {
     console.error("Error en registro:", error);
     throw error;
   }
+}
+
+export async function getUsuarios(token) {
+  const res = await fetch(`${API_URL}/usuarios`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+export async function eliminarUsuario(token, id) {
+  const res = await fetch(`${API_URL}/usuarios/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 }

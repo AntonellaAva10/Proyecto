@@ -28,82 +28,90 @@ export default function ListadoClientes() {
     if (!confirm("¿Seguro que querés eliminar este cliente?")) return;
     try {
       const token = localStorage.getItem("token");
-      await eliminarCliente(id_cliente, token);
+      await eliminarCliente(token, id_cliente);
       setClientes(clientes.filter((c) => c.id_cliente !== id_cliente));
     } catch (err) {
       alert("Error al eliminar: " + err.message);
     }
   };
 
-  if (loading) return <p className="text-black">Cargando clientes...</p>;
-  if (error) return <p className="text-black">Error: {error}</p>;
+  if (loading) return <p className="text-gray-800">Cargando clientes...</p>;
+  if (error) return <p className="text-red-600">Error: {error}</p>;
 
   return (
-    <div className="container mx-auto p-4 bg-white text-black min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Listado de Clientes</h1>
-      <button
-        className="bg-green-600 text-white px-4 py-2 rounded mb-4 hover:bg-green-700"
-        onClick={() => router.push("/clientes/create")}
-      >
-        + Registrar Cliente
-      </button>
-      <table className="w-full border-collapse border border-gray-300 text-sm">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-gray-300 p-2">ID</th>
-            <th className="border border-gray-300 p-2">Razón Social</th>
-            <th className="border border-gray-300 p-2">Dirección</th>
-            <th className="border border-gray-300 p-2">Contacto</th>
-            <th className="border border-gray-300 p-2">CUIT</th>
-            <th className="border border-gray-300 p-2">Situación Fiscal</th>
-            <th className="border border-gray-300 p-2">Fecha Creación</th>
-            <th className="border border-gray-300 p-2">Fecha Actualización</th>
-            <th className="border border-gray-300 p-2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clientes.map((cliente) => (
-            <tr key={cliente.id_cliente} className="hover:bg-gray-100">
-              <td className="border border-gray-300 p-2">
-                {cliente.id_cliente}
-              </td>
-              <td className="border border-gray-300 p-2">
-                {cliente.razon_social}
-              </td>
-              <td className="border border-gray-300 p-2">
-                {cliente.direccion}
-              </td>
-              <td className="border border-gray-300 p-2">{cliente.contacto}</td>
-              <td className="border border-gray-300 p-2">{cliente.cuit}</td>
-              <td className="border border-gray-300 p-2">
-                {cliente.situacion_fiscal}
-              </td>
-              <td className="border border-gray-300 p-2">
-                {cliente.fecha_creacion}
-              </td>
-              <td className="border border-gray-300 p-2">
-                {cliente.fecha_actualizacion}
-              </td>
-              <td className="border border-gray-300 p-2 space-x-2">
-                <button
-                  className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-                  onClick={() =>
-                    router.push(`/clientes/${cliente.id_cliente}/editar`)
-                  }
+    <div className="min-h-screen p-8 bg-gray-100 text-gray-800">
+      {/* Header listado */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Listado de Clientes</h1>
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+          onClick={() => router.push("/clientes/create")}
+        >
+          + Registrar Cliente
+        </button>
+      </div>
+
+      {/* Tabla */}
+      <div className="overflow-x-auto shadow-lg rounded-lg bg-gray-50">
+        <table className="min-w-full border border-gray-200 divide-y divide-gray-200">
+          <thead className="bg-gray-200">
+            <tr>
+              {[
+                "ID",
+                "Razón Social",
+                "Dirección",
+                "Contacto",
+                "CUIT",
+                "Situación Fiscal",
+                "Fecha Creación",
+                "Fecha Actualización",
+                "Acciones",
+              ].map((title) => (
+                <th
+                  key={title}
+                  className="px-4 py-2 text-left text-sm font-semibold text-gray-800"
                 >
-                  Editar
-                </button>
-                <button
-                  className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700"
-                  onClick={() => handleEliminar(cliente.id_cliente)}
-                >
-                  Eliminar
-                </button>
-              </td>
+                  {title}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200">
+            {clientes.map((cliente) => (
+              <tr
+                key={cliente.id_cliente}
+                className="hover:bg-gray-300/20 transition-colors"
+              >
+                <td className="px-4 py-2">{cliente.id_cliente}</td>
+                <td className="px-4 py-2">{cliente.razon_social}</td>
+                <td className="px-4 py-2">{cliente.direccion}</td>
+                <td className="px-4 py-2">{cliente.contacto}</td>
+                <td className="px-4 py-2">{cliente.cuit}</td>
+                <td className="px-4 py-2">{cliente.situacion_fiscal}</td>
+                <td className="px-4 py-2">{cliente.fecha_creacion}</td>
+                <td className="px-4 py-2">{cliente.fecha_actualizacion}</td>
+                <td className="px-4 py-2 space-x-2 flex">
+                  <button
+                    className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-colors"
+                    onClick={() =>
+                      router.push(`/clientes/${cliente.id_cliente}/editar`)
+                    }
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors"
+                    onClick={() => handleEliminar(cliente.id_cliente)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
