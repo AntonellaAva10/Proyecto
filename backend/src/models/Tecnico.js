@@ -30,6 +30,10 @@ Tecnico.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    activo: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     sequelize: con_sequelize,

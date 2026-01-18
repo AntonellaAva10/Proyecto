@@ -14,6 +14,10 @@ Factura.init(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    activo: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     sequelize: con_sequelize,

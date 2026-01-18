@@ -31,12 +31,18 @@ Cliente.init(
       allowNull: false,
     },
     fecha_creacion: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     fecha_actualizacion: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    activo: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
   {

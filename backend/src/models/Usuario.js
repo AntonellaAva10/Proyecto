@@ -10,6 +10,10 @@ Usuario.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    nombre: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
@@ -31,6 +35,10 @@ Usuario.init(
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+    activo: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
   {

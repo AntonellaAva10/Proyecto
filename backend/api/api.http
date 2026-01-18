@@ -1,8 +1,8 @@
 @urlocal = http://localhost:8000/api
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmUiOiJBbnRvbmVsbGEiLCJpYXQiOjE3NjM2ODI2NTEsImV4cCI6MTc2MzY4NjI1MX0.rknnk0mXrW7tJXDHPE8UMD0wV9xXyfe4Gsb-lQMQkus
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJub21icmUiOiJBbnRvbmVsbGEiLCJpYXQiOjE3NjQyNzM5MzAsImV4cCI6MTc2NDI3NzUzMH0.gw-S-Eeauj7Ugjq0kaF_VOIYQ7eTRLwCjixH3ro3xHA
 
-GET {{urlocal}}/clientes
+GET {{urlocal}}/clientes/1
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -39,3 +39,4 @@ Accept: application/json
   "password": "admin123",
   "rol": "admin"
 }
+

@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const { con_sequelize } = require("../database/db");
+const Cliente = require("./Cliente");
 
 class Maquina extends Model {}
 
@@ -18,13 +19,29 @@ Maquina.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    fecha_creacion: {
-      type: DataTypes.DATEONLY,
+    cliente_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Cliente,
+        key: "id_cliente",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
+    },
+    fecha_creacion: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     fecha_actualizacion: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    activo: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
   },
   {
@@ -34,5 +51,8 @@ Maquina.init(
     timestamps: false,
   }
 );
+
+Maquina.belongsTo(Cliente, { foreignKey: "cliente_id", as: "cliente" });
+Cliente.hasMany(Maquina, { foreignKey: "cliente_id", as: "maquinas" });
 
 module.exports = Maquina;
